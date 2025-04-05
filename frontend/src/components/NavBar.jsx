@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const NavBar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -8,16 +9,19 @@ const NavBar = () => {
   };
   return (
     <>
-      <nav className="m-2 p-1">
+      <nav className="p-5 backdrop-blur-md border-b">
         <div className="flex items-center justify-between">
           {/* for logo */}
-          <div className="text-white text-3xl cursor-pointer font-extrabold">
-            LayoutR
-          </div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="text-dark text-3xl cursor-pointer font-extrabold"
+          >
+            <span>LayoutR</span>
+          </motion.div>
           {/* Hamburger Menu (Visible in smaller devices) */}
           <div className="md:hidden flex item-center">
             <button
-              className="text-3xl text-white cursor-pointer"
+              className="text-3xl text-dark cursor-pointer"
               onClick={toggleMobileMenu}
             >
               <i
@@ -26,7 +30,7 @@ const NavBar = () => {
             </button>
           </div>
           {/*desktop links hidden in mobile */}
-          <div className="hidden md:flex gap-8 text-lg text-white ">
+          <div className="hidden md:flex gap-8 text-xl text-dark font-semibold ">
             <a href="">Features</a>
             <a href="">Template</a>
             <a href="">Pricing</a>
@@ -34,8 +38,8 @@ const NavBar = () => {
           </div>
           {/* fot cta buttons */}
           <div className="hidden md:flex gap-4 text-lg mr-2">
-            <button className="text-white cursor-pointer">Sign In</button>
-            <button className="text-white bg-gray-600 px-4 py-1 rounded hover:bg-gray-700 cursor-pointer">
+            <button className="text-dark cursor-pointer">Sign In</button>
+            <button className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 cursor-pointer">
               Try Free
             </button>
           </div>
@@ -43,7 +47,7 @@ const NavBar = () => {
         {/* Mobile Menu visible in small devices */}
         {isMobileMenu && (
           <>
-            <div className="md:hidden flex flex-col items-center bg-gray-800 text-lg p-2 text-white transform transition-all duration-300 ease-in-out">
+            <div className="md:hidden flex flex-col items-center text-lg p-2 text-dark  transform transition-all duration-300 ease-in-out">
               <a href="" className="py-1">
                 Features
               </a>
@@ -56,11 +60,12 @@ const NavBar = () => {
               <a href="" className="py-1">
                 Docs
               </a>
+              <div className="w-full my-1 border-t"></div>
               <div className="flex gap-4 mt-2">
-                <button className="text-white cursor-pointer py-1">
+                <button className="text-dark cursor-pointer py-1">
                   Sign In
                 </button>
-                <button className="text-white bg-gray-600 px-4 py-1 rounded hover:bg-gray-700 transition cursor-pointer">
+                <button className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 transition cursor-pointer">
                   Try Free
                 </button>
               </div>
