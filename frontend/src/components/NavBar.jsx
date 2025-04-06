@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
@@ -16,7 +17,10 @@ const NavBar = () => {
             whileHover={{ scale: 1.05 }}
             className="text-dark text-3xl cursor-pointer font-extrabold"
           >
-            <span>LayoutR</span>
+            <span>
+              {" "}
+              <Link to="/">LayoutR</Link>
+            </span>
           </motion.div>
           {/* Hamburger Menu (Visible in smaller devices) */}
           <div className="md:hidden flex item-center">
@@ -30,7 +34,7 @@ const NavBar = () => {
             </button>
           </div>
           {/*desktop links hidden in mobile */}
-          <div className="hidden md:flex gap-8 text-xl text-dark font-semibold ">
+          <div className="hidden md:flex gap-8 text-xl text-dark ">
             <a href="">Features</a>
             <a href="">Template</a>
             <a href="">Pricing</a>
@@ -38,7 +42,9 @@ const NavBar = () => {
           </div>
           {/* fot cta buttons */}
           <div className="hidden md:flex gap-4 text-lg mr-2">
-            <button className="text-dark cursor-pointer">Sign In</button>
+            <button className="text-dark cursor-pointer">
+              <Link to="/login">Sign In</Link>
+            </button>
             <button className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 cursor-pointer">
               Try Free
             </button>
@@ -63,7 +69,7 @@ const NavBar = () => {
               <div className="w-full my-1 border-t"></div>
               <div className="flex gap-4 mt-2">
                 <button className="text-dark cursor-pointer py-1">
-                  Sign In
+                  <Link to="/login">Sign In</Link>
                 </button>
                 <button className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 transition cursor-pointer">
                   Try Free
