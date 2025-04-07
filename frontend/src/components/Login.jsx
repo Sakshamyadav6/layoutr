@@ -17,7 +17,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col md:m-6 w-full md:w-1/3 md:me-20 ms-1  ">
+    <div className="flex flex-col md:m-6 w-full md:w-1/3   md:me-20 ms-1  ">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
