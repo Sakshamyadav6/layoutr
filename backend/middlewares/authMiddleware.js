@@ -16,7 +16,7 @@ const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET); //it returns the decoded payload back
 
       //attach user to request ,excluding password
-      req.user = await User.findById(decoded._id).select("-password");
+      req.user = await User.findById(decoded.id).select("-password");
 
       next(); //go to the next middleware or controller
     } catch (error) {

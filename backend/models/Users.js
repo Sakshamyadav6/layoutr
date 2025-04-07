@@ -29,9 +29,14 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    avatar: {
+      type: String,
+      default:
+        "https://img.freepik.com/free-vector/purple-man-with-blue-hair_24877-82003.jpg?t=st=1744053967~exp=1744057567~hmac=b56dbd844c7d7c6e8cd2ff92755e635bfc1d90a7f4e3e742ee343f48a4190d8a&w=900",
+    },
   },
   {
-    timestamps: true, //adds createdat and updatedat fields
+    timestamps: true, //adds createdAt and updatedAt fields
   }
 );
 module.exports = mongoose.model("User", userSchema);

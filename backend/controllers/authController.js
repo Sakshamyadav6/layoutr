@@ -67,4 +67,40 @@ const loginUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-module.exports = { registeredUser, loginUser };
+const updateProfile = async (req, res) => {
+  //search for the user in db
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    res.status(404).json({ message: "user not found" });
+  }
+  //store user inputs
+  const { name, email, password, avatar } = req.body;
+
+  //update if provided
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (avatar) uset.avatar = avatar;
+
+  if (password) {
+    //salt the password
+    const salt = await bcrypt.genSalt(10);
+    //hashing
+    user.password = await bcrypt.hash(password, salt);
+  }
+  //update the user data
+  const updatedUser = await user.save();
+
+  //return a success response
+
+  res.status(201).json({
+    message: "user profile updated sucessfully",
+    user: {
+      id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      avatar: updatedUser.avatar,
+    },
+  });
+};
+module.exports = { registeredUser, loginUser, updateProfile };
