@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import AuthLayout from "./pages/AuthLayout";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </>
   );
