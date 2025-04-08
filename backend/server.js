@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoute = require("./routes/authRoutes");
+const projectRoute = require("./routes/projectRoutes");
 
 dotenv.config(); // load .env file
 
@@ -14,11 +15,12 @@ app.use(express.json());
 app.use(cors());
 
 //default route
-app.get("/", (res, req) => {
+app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
 app.use("/api/auth", authRoute);
+app.use("/api", projectRoute);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -2,22 +2,40 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../services/axios.service";
+import { successToast } from "../../services/toast.service";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const successMessages = [
+    "Welcome back, legend! 🦸",
+    "You're in. Time to crush it! 🚀",
+    "Nice! Login successful 🔐",
+    "Hello again, you beautiful human 😎",
+    "Back like you never left 🔁",
+    "Access granted. Proceed with awesomeness ✅",
+    "Doors opened. Welcome to your dashboard 🏠",
+    "Logged in like a boss 😤",
+    "You're online and unstoppable 💻⚡",
+    "Session started. Let the magic begin ✨",
+  ];
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await loginUser("api/auth/login", { email, password });
       console.log(response);
+      if (response.status == "200") {
+        successToast(
+          successMessages[Math.floor(Math.random() * successMessages.length)]
+        );
+      }
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className="flex flex-col md:m-6 w-full md:w-1/3   md:me-20 ms-1  ">
+    <div className="flex flex-col md:m-6 w-full  md:w-1/3   md:me-20 ms-1  ">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

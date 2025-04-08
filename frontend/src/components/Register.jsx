@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { registerUser } from "../../services/axios.service";
+import { errorToast, successToast } from "../../services/toast.service";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -9,15 +10,39 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const registerSuccessMessages = [
+    "Welcome aboard, captain! 🛸",
+    "You're officially in the club 🎉",
+    "Account created. Time to shine ✨",
+    "Glad to have you with us! 🤝",
+    "Registration complete. Let’s gooo 🚀",
+    "You're all set! Start exploring 🔍",
+    "Boom! You're now one of us 😎",
+    "Signed up and ready to roll ✅",
+    "Account? Created. Vibes? Immaculate 💫",
+    "You just unlocked a new level 🗝️",
+  ];
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      if (password !== confirmPassword) {
+        errorToast("Password and Confirm Password are not equal");
+        return;
+      }
       const response = await registerUser("api/auth/register", {
         name: name,
         email: email,
         password: confirmPassword,
       });
       console.log(response);
+      if (response.status == "200") {
+        successToast(
+          registerSuccessMessages[
+            Math.floor(Math.random() * registerSuccessMessages.length)
+          ]
+        );
+      }
     } catch (error) {
       console.log(error);
     }

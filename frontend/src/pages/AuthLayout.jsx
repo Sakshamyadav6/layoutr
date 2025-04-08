@@ -24,7 +24,7 @@ const AuthLayout = () => {
           <span className="block">Build UIs. Visually.</span>
           <span>Instantly.</span>
         </motion.p>
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -33,7 +33,7 @@ const AuthLayout = () => {
           <p>
             Drag. Drop. Ship. Production-ready <br /> code in real time
           </p>
-        </motion.p>
+        </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

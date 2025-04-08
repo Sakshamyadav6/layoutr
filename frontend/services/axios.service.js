@@ -1,4 +1,5 @@
 import axios from "axios";
+import { errorToast } from "./toast.service";
 
 export const registerUser = async (uri, data) => {
   try {
@@ -9,6 +10,7 @@ export const registerUser = async (uri, data) => {
     return response;
   } catch (error) {
     console.log(error);
+    errorToast(error.response.data.message);
   }
 };
 export const loginUser = async (uri, data) => {
@@ -20,5 +22,6 @@ export const loginUser = async (uri, data) => {
     return response;
   } catch (error) {
     console.log(error);
+    errorToast(error.response.data.message);
   }
 };
