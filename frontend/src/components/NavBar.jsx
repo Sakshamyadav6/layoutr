@@ -34,11 +34,19 @@ const NavBar = () => {
             </button>
           </div>
           {/*desktop links hidden in mobile */}
-          <div className="hidden md:flex gap-8 text-xl text-dark ">
-            <a href="">Features</a>
-            <a href="">Template</a>
-            <a href="">Pricing</a>
-            <a href="">Docs</a>
+          <div className="hidden md:flex gap-8 text-xl text-dark  ">
+            <a href="" className="hover:text-gray-700 ">
+              Features
+            </a>
+            <a href="" className="hover:text-gray-700 ">
+              Template
+            </a>
+            <a href="" className="hover:text-gray-700 ">
+              Pricing
+            </a>
+            <a href="" className="hover:text-gray-700 ">
+              Docs
+            </a>
           </div>
           {/* fot cta buttons */}
           <div className="hidden md:flex gap-4 text-lg mr-2">

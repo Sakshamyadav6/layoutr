@@ -2,18 +2,18 @@ const Project = require("../models/Project");
 
 const createProject = async (req, res) => {
   //get data from users (form)
-  const { name, description, cssFramework } = req.body;
+  const { name, description, cssFramework, components } = req.body;
 
   // Get the user's ID from the protect middleware (decoded from token)
   const userId = req.user?._id;
 
   // Check if a project with the same name already exists (global check)
-  const isName = await Project.findOne({ name });
-  if (isName) {
-    res
-      .status(400)
-      .json({ message: "Project already exists, use another name" });
-  }
+  //   const isName = await Project.findOne({ name });
+  //   if (isName) {
+  //     res
+  //       .status(400)
+  //       .json({ message: "Project already exists, use another name" });
+  //   }
 
   //checks if every field are available or not
   if (!name || !description || !cssFramework) {
@@ -27,6 +27,7 @@ const createProject = async (req, res) => {
       user: userId, //save the current user's id in the project
       description,
       cssFramework,
+      components,
     });
     //return a success response
     res.status(201).json({
@@ -37,9 +38,11 @@ const createProject = async (req, res) => {
         user: createdProject.user,
         description: createdProject.description,
         cssFramework: createdProject.cssFramework,
+        components: createdProject.components,
       },
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 };

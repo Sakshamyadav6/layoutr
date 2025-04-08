@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/axios.service";
 import { successToast } from "../../services/toast.service";
+import { useDispatch } from "react-redux";
+import { login } from "../slice/authSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const successMessages = [
     "Welcome back, legend! 🦸",
     "You're in. Time to crush it! 🚀",
@@ -26,9 +31,18 @@ const Login = () => {
       const response = await loginUser("api/auth/login", { email, password });
       console.log(response);
       if (response.status == "200") {
+        console.log(response.data.user);
+        const data = {
+          email: response.data.user.email,
+          name: response.data.user.name,
+          token: response.data.token,
+          avatar: response.data.user.avatar,
+        };
+        dispatch(login(data));
         successToast(
           successMessages[Math.floor(Math.random() * successMessages.length)]
         );
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

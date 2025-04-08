@@ -40,10 +40,7 @@ const AuthLayout = () => {
           transition={{ duration: 0.5, delay: 1.1 }}
           className="mt-4"
         >
-          <img
-            src="/public/img/mockup1.png"
-            className="h-50 w-70 md:h-60 md:w-100"
-          />
+          <img src="/img/mockup1.png" className="h-50 w-70 md:h-60 md:w-100" />
         </motion.div>
       </div>
       {/* right panel */}
