@@ -42,7 +42,7 @@ const Login = () => {
         successToast(
           successMessages[Math.floor(Math.random() * successMessages.length)]
         );
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);

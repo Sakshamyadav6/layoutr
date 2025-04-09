@@ -42,3 +42,41 @@ export const createProject = async (uri, data, token) => {
     errorToast(error.response.data.message);
   }
 };
+export const getProject = async (uri, token) => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_SERVER_URL}/${uri}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    errorToast(error.response.data.message);
+  }
+};
+export const deleteProject = async (uri, token) => {
+  try {
+    const response = await axios.delete(
+      `${import.meta.env.VITE_SERVER_URL}/${uri} `,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error(error);
+    errorToast(error.response.data.message);
+  }
+};
+export const getProjectById = async (uri, token) => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_SERVER_URL}/${uri}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

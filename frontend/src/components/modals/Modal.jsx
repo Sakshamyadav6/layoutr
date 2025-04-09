@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { createProject } from "../../../services/axios.service";
 import { useSelector } from "react-redux";
 import { successToast } from "../../../services/toast.service";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Modal = ({ isModal, handleClose }) => {
   if (!isModal) return null; // avoid rendering completely if closed
@@ -11,6 +13,7 @@ const Modal = ({ isModal, handleClose }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [cssFramework, setCssFramework] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +29,14 @@ const Modal = ({ isModal, handleClose }) => {
       );
       console.log(response);
       if (response.status == "201" || response.status == "200") {
-        successToast("Project Created Sucessfully");
+        successToast(
+          <span>
+            Project created!{" "}
+            <a href={`/projects`} className="underline text-blue-600 ml-2">
+              View
+            </a>
+          </span>
+        );
         handleClose();
         setName("");
         setDescription("");

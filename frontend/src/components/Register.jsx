@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { registerUser } from "../../services/axios.service";
 import { errorToast, successToast } from "../../services/toast.service";
@@ -9,6 +9,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const registerSuccessMessages = [
     "Welcome aboard, captain! 🛸",
@@ -42,6 +44,7 @@ const Register = () => {
             Math.floor(Math.random() * registerSuccessMessages.length)
           ]
         );
+        navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);

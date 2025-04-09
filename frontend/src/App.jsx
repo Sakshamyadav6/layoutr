@@ -10,6 +10,7 @@ import Projects from "./pages/dashboard/Projects";
 import Library from "./pages/dashboard/Library";
 import Account from "./pages/dashboard/Account";
 import Settings from "./pages/dashboard/Settings";
+import ProjectDetail from "./components/dashboard/ProjectDetail";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/uilibrary" element={<Library />} />
         <Route path="account" element={<Account />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/projects/:id" element={<ProjectDetail />} />
       </Routes>
     </>
   );
