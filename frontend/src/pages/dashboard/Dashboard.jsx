@@ -1,55 +1,24 @@
-import {
-  BuildingStorefrontIcon,
-  ChartBarIcon,
-  CogIcon,
-  FolderIcon,
-  PlusIcon,
-  UserIcon,
-} from "@heroicons/react/24/solid";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SideBar from "../../components/dashboard/SideBar";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import Modal from "../../components/modals/Modal";
 
 const Dashboard = () => {
+  const [isModal, setIsModal] = useState(false);
+  const handleCreate = (e) => {
+    e.preventDefault();
+    setIsModal(true);
+  };
+  const handleClose = () => {
+    setIsModal(false);
+  };
   return (
     <>
       <div className="flex flex-col md:flex-row min-h-screen">
         {/* sidebar */}
         <aside className="w-full md:w-60  bg-[#0f172a] text-white p-4 text-center ">
-          {/* text */}
-          <h2 className="text-4xl font-semibold p-4 md:mb-6">LayoutR</h2>
-          <div className="flex flex-col gap-3 md:gap-7 text-lg">
-            <Link
-              className="flex  items-center justify-center hover:text-blue-200"
-              to=""
-            >
-              <ChartBarIcon className="h-5 w-5 me-2" /> Dashboard
-            </Link>
-            <Link
-              className="flex  items-center justify-center hover:text-blue-200"
-              to=""
-            >
-              <FolderIcon className="h-5 w-5 me-2" />
-              Projects
-            </Link>
-            <Link
-              className="flex  items-center justify-center hover:text-blue-200"
-              to=""
-            >
-              <BuildingStorefrontIcon className="h-5 w-5 me-2" /> UI Library
-            </Link>
-            <Link
-              className="flex  items-center justify-center hover:text-blue-200"
-              to=""
-            >
-              <UserIcon className="h-5 w-5 me-2" /> Account
-            </Link>
-            <Link
-              className="flex  items-center justify-center hover:text-blue-200"
-              to=""
-            >
-              <CogIcon className="h-5 w-5 me-2" /> Settings
-            </Link>
-          </div>
+          <SideBar />
         </aside>
         {/* Main content */}
         <main className="flex-1 overflow-y-auto text-gray-900 p-5 md:p-10">
@@ -68,7 +37,10 @@ const Dashboard = () => {
               <button className="text-sm text-gray-500 hover:text-gray-800">
                 Support
               </button>
-              <button className="bg-blue-600 text-white py-2 px-4 flex items-center rounded cursor-pointer hover:bg-blue-700 transition">
+              <button
+                className="bg-blue-600 text-white py-2 px-4 flex items-center rounded cursor-pointer hover:bg-blue-700 transition"
+                onClick={handleCreate}
+              >
                 <PlusIcon className="h-5 w-5" /> New Project
               </button>
             </div>
@@ -132,6 +104,7 @@ const Dashboard = () => {
           </div>
         </main>
       </div>
+      <Modal isModal={isModal} handleClose={handleClose} />
     </>
   );
 };

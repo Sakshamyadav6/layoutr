@@ -5,7 +5,11 @@ import NavBar from "./components/NavBar";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import AuthLayout from "./pages/AuthLayout";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Projects from "./pages/dashboard/Projects";
+import Library from "./pages/dashboard/Library";
+import Account from "./pages/dashboard/Account";
+import Settings from "./pages/dashboard/Settings";
 
 function App() {
   return (
@@ -18,6 +22,10 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Route>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/uilibrary" element={<Library />} />
+        <Route path="account" element={<Account />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </>
   );

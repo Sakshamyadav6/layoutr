@@ -16,8 +16,8 @@ const createProject = async (req, res) => {
   //   }
 
   //checks if every field are available or not
-  if (!name || !description || !cssFramework) {
-    return res.status(400).json({ message: "All fields are required" });
+  if (!name) {
+    return res.status(400).json({ message: "Name is required" });
   }
 
   try {
