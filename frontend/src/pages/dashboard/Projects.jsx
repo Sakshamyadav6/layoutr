@@ -16,7 +16,7 @@ const Projects = () => {
       const response = await getProject("api/project", token);
       console.log(response);
       setProject(response.data.project);
-      successToast(response.data.message);
+      // successToast(response.data.message);
     } catch (error) {
       console.log(error);
     }

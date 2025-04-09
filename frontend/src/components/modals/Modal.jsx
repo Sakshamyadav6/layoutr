@@ -29,10 +29,14 @@ const Modal = ({ isModal, handleClose }) => {
       );
       console.log(response);
       if (response.status == "201" || response.status == "200") {
+        const id = response.data.project.id;
         successToast(
           <span>
             Project created!{" "}
-            <a href={`/projects`} className="underline text-blue-600 ml-2">
+            <a
+              href={`/projects/${id}`}
+              className="underline text-blue-600 ml-2"
+            >
               View
             </a>
           </span>

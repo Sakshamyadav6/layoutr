@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   projects: [], //holds all of the user projects
-  currentProject: [], //holds the entire project data from the backend
+  currentProject: null, //holds the entire project data from the backend
   componentTree: [], // the actual drag-drop layout in JSON strucutre
   selectedComponentId: null, //id of currently selected components for editing props
   cssFramework: "tailwind", //defaults to tailwind
@@ -19,8 +19,12 @@ const projectSlice = createSlice({
     setComponentTree: (state, action) => {
       state.componentTree = action.payload;
     },
+    //to store the current project
+    setCurrentProject: (state, action) => {
+      state.currentProject = action.payload;
+    },
     //to keep track of which components is selected
-    selectedComponent: (state, action) => {
+    selectedComponentId: (state, action) => {
       state.selectedComponentId = action.payload;
     },
     resetBuilder: (state) => {
@@ -31,7 +35,24 @@ const projectSlice = createSlice({
       state.error = null;
       state.success = null;
     },
+    setProjectLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setProjectError: (state, action) => {
+      state.error = action.payload;
+    },
+    setProjectSuccess: (state, action) => {
+      state.success = action.payload;
+    },
   },
 });
-export const { setComponentTree } = projectSlice.actions;
+export const {
+  setComponentTree,
+  selectedComponentId,
+  resetBuilder,
+  setCurrentProject,
+  setProjectError,
+  setProjectLoading,
+  setProjectSuccess,
+} = projectSlice.actions;
 export default projectSlice.reducer;
