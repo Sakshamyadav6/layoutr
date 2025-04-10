@@ -5,7 +5,7 @@ import { ArrowRightIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
 const HeroSection = () => {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden min-h-screen">
         {/* background glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#3b82f6_0%,_transparent_70%)] opacity-10" />
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24 xl:py-28 text-center">

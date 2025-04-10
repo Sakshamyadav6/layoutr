@@ -71,6 +71,7 @@ const ProjectDetail = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getProjectDetails();
   }, []);
@@ -105,7 +106,12 @@ const ProjectDetail = () => {
                 </button>
 
                 <div className="flex gap-3">
-                  <button className="bg-gray-100 border px-6 py-2 rounded hover:bg-gray-200 transition">
+                  <button
+                    className="bg-gray-100 border px-6 py-2 rounded hover:bg-gray-200 transition"
+                    onClick={() => {
+                      navigate(`/builder/${projectData._id}`);
+                    }}
+                  >
                     Edit
                   </button>
 
@@ -159,7 +165,7 @@ const ProjectDetail = () => {
             {/* project overview  */}
             <div className="mb-2">
               <h2 className="text-2xl font-semibold">Project Info</h2>
-              <div className="flex gap-50">
+              <div className="flex flex-col md:flex-row gap-5 md:gap-50">
                 <div className="mt-3">
                   <p className="text-xl">Project Name</p>
                   <p className="font-semibold text-xl pt-4">
