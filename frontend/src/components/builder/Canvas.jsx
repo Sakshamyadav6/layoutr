@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
-import { addComponentToProject } from "../../slice/projectSlice";
+import { addComponentToProject, moveComponent } from "../../slice/projectSlice";
+import DraggableCanvasItem from "./DraggableCanvasItem";
 
 const Canvas = () => {
   const { componentTrees, currentProjectId } = useSelector(
@@ -16,7 +17,7 @@ const Canvas = () => {
 
   //setup the drop area
   const [{ isOver }, drop] = useDrop({
-    accept: "component", //must matchthe type used in sidebar drag
+    accept: ["component", "existingComponent"], //must matchthe type used in sidebar drag
     // this function runs when a draggable item is dropped
     drop: (item, monitor) => {
       // get the exact position of the drop in browser viewport
@@ -32,6 +33,17 @@ const Canvas = () => {
       // calculate relative position of drop inside the canvas
       const x = offSet.x - canvasRect.left;
       const y = offSet.y - canvasRect.top;
+
+      // check if its an exisitng component being moved
+      if (item.id) {
+        const data = {
+          projectId: currentProjectId,
+          id: item.id,
+          position: { x, y },
+        };
+        dispatch(moveComponent(data));
+        return;
+      }
 
       // create a new component object with positions
       const newComponent = {
@@ -55,55 +67,25 @@ const Canvas = () => {
     }),
   });
 
-  const renderComponent = (component) => {
-    const { id, type, props, position } = component;
-    const style = {
-      position: "absolute", //allows freeform placement
-      left: position?.x || 0,
-      top: position?.y || 0,
-      ...props?.style, //apply any custom styles passed
-    };
-    switch (type) {
-      case "button":
-        return (
-          <button id={id} {...props} style={style}>
-            {props.children || "Button"}
-          </button>
-        );
-        break;
-      case "p":
-        return (
-          <p id={id} {...props} style={style}>
-            {props.children || "P"}
-          </p>
-        );
-        break;
-      case "div":
-        return (
-          <div id={id} {...props} style={style}>
-            {props.children || "Div"}
-          </div>
-        );
-        break;
-      case "h1":
-        return (
-          <h1 id={id} {...props} style={style}>
-            {props.children || "H1"}
-          </h1>
-        );
-      default:
-        return null;
-    }
-  };
   return (
     <div
       className=" relative w-full min-h-[80vh] bg-white border border-dashed border-gray-300 rounded-xl p-6 shadow-sm"
       id="canvas" //used for getting canvas position for accurate drop
       ref={drop} //attach drop logic
     >
-      <p>Start building by drag and drop from sidebar</p>
-
-      {componentTree.map((comp) => renderComponent(comp))}
+      {componentTree.length == 0 ? (
+        <p className="text-center text-gray-500 text-sm italic mt-4">
+          🚀 Start building your interface — drag components from the sidebar
+          and drop them here!
+        </p>
+      ) : (
+        <>
+          {" "}
+          {componentTree.map((comp) => (
+            <DraggableCanvasItem id={comp.id} component={comp} />
+          ))}
+        </>
+      )}
     </div>
   );
 };

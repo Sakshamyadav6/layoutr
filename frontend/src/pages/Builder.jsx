@@ -16,11 +16,24 @@ const Builder = () => {
   const component = useSelector((state) =>
     mode == "auth" ? state.project.componentTree : state.project.draftTree
   );
+  useEffect(() => {
+    if (id) {
+      console.log(id);
+      dispatch(setBuilderMode("auth"));
+      dispatch(setCurrentProjectId(id));
+    } else {
+      dispatch(setBuilderMode("guest"));
+    }
+
+    return () => {
+      dispatch(resetBuilder());
+    };
+  }, [id, dispatch]);
 
   return (
-    <div className="flex flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* sidebar */}
-      <aside className="   bg-[#0f172a] w-full md:w-60 text-white text-center p-3 md:p-10">
+      <aside className="bg-[#0f172a] w-full h-90 md:min-h-screen md:w-60 text-white text-center p-1 md:p-10">
         <SideBar />
       </aside>
       {/* main canvas part */}

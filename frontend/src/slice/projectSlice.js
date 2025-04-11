@@ -27,7 +27,7 @@ const projectSlice = createSlice({
       state.currentProject = action.payload;
     },
     //to keep track of which components is selected
-    selectedComponentId: (state, action) => {
+    setselectedComponentId: (state, action) => {
       state.selectedComponentId = action.payload;
     },
     resetBuilder: (state) => {
@@ -84,11 +84,20 @@ const projectSlice = createSlice({
         currentProjectId: projectId, // useful for keeping track of which project is currently being edited
       };
     },
+    moveComponent: (state, action) => {
+      const { projectId, id, position } = action.payload;
+      const components = state.componentTrees[projectId];
+
+      const index = components.findIndex((comp) => comp.id === id);
+      if (index !== -1) {
+        components[index].position = position;
+      }
+    },
   },
 });
 export const {
   setComponentTree,
-  selectedComponentId,
+  setselectedComponentId,
   resetBuilder,
   setCurrentProject,
   setProjectError,
@@ -99,5 +108,6 @@ export const {
   setCurrentProjectId,
   setComponentTreeForProject,
   addComponentToProject,
+  moveComponent,
 } = projectSlice.actions;
 export default projectSlice.reducer;

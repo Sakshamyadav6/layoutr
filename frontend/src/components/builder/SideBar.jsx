@@ -1,34 +1,9 @@
-import { PlayIcon, PlusIcon } from "@heroicons/react/24/solid";
-import React, { useEffect } from "react";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import React from "react";
 import { componentLibrary } from "../../../data/componentLibrary";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addComponentToProject,
-  setComponentTree,
-} from "../../slice/projectSlice";
-import { v4 as uuidv4 } from "uuid";
-import { useParams } from "react-router-dom";
 import { useDrag } from "react-dnd";
 
 const SideBar = () => {
-  const dispatch = useDispatch();
-  const projectState = useSelector((state) => state.project);
-  const { id: projectId } = useParams();
-
-  // const handleClick = (comp) => {
-  //   console.log(comp);
-  //   const newComponent = {
-  //     id: uuidv4(),
-  //     type: comp.type,
-  //     label: comp.label,
-  //     props: comp.defaultProps,
-  //     position: { x: 100, y: 100 },
-  //   };
-  //   // const data = [projectId, newComponent];
-  //   dispatch(addComponentToProject({ projectId, component: newComponent }));
-  //   console.log(newComponent);
-  // };
-
   return (
     <div className="h-full w-full p-4 text-white bg-[#0f172a] flex flex-col gap-6">
       {/* Branding */}
