@@ -4,7 +4,7 @@ export const componentLibrary = [
     label: "Button", //display name for users
     defaultProps: {
       children: "Click Me",
-      className: "px-4 py-2 bg-blue-600 text-white rounded",
+      className: "relative px-4 py-2 bg-blue-600 text-white rounded m-2",
     },
   },
   {
@@ -12,7 +12,7 @@ export const componentLibrary = [
     label: "Text",
     defaultProps: {
       children: "Lorem ipsum dolor sit amet.",
-      className: "text-base",
+      className: "relative text-base",
     },
   },
   {
@@ -20,15 +20,15 @@ export const componentLibrary = [
     label: "Div",
     defaultProps: {
       children: "Card Content",
-      className: "p-4",
+      className: "relative p-4",
     },
   },
   {
     type: "h1",
     label: "Heading",
-    defaultProps: {
+    defaultProps: { 
       children: "This is H1",
-      className: "p-1",
+      className: "relative p-1",
     },
   },
 ];

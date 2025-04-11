@@ -54,16 +54,35 @@ const projectSlice = createSlice({
       state.success = action.payload;
     },
     setCurrentProjectId: (state, action) => {
-      state.cureentProjectId = action.payload;
+      state.currentProjectId = action.payload;
     },
     setComponentTreeForProject: (state, action) => {
       const { projectId, tree } = action.payload;
       state.componentTrees[projectId] = tree;
     },
     addComponentToProject: (state, action) => {
-      const { projectId, component } = action.payload;
-      const current = state.componentTrees[projectId] || [];
-      state.componentTrees[projectId] = [...current, component];
+      const { component, projectId } = action.payload; // Extract the component and its associated project ID from the dispatched action
+
+      // Create a shallow copy of the current componentTrees state to avoid direct mutation
+      const newComponentTrees = { ...state.componentTrees };
+
+      // If there's no entry for this project yet, initialize it as an empty array
+      if (!newComponentTrees[projectId]) {
+        newComponentTrees[projectId] = [];
+      }
+
+      // Add the new component to the component tree array for this specific project
+      newComponentTrees[projectId] = [
+        ...newComponentTrees[projectId],
+        component,
+      ];
+
+      // Return a new state object with the updated componentTrees and set the currentProjectId
+      return {
+        ...state,
+        componentTrees: newComponentTrees,
+        currentProjectId: projectId, // useful for keeping track of which project is currently being edited
+      };
     },
   },
 });

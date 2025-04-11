@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteProject, getProjectById } from "../../../services/axios.service";
 import {
   setComponentTree,
+  setComponentTreeForProject,
   setCurrentProject,
   setProjectError,
   setProjectLoading,
@@ -34,6 +35,7 @@ const ProjectDetail = () => {
         const formattedDate = formatDistanceToNow(new Date(project.createdAt), {
           addSuffix: true,
         });
+        // dispatch(setComponentTreeForProject(projectData));
         setCreatedDate(formattedDate);
         setProjectData(project);
 

@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { registerUser } from "../../services/axios.service";
 import { errorToast, successToast } from "../../services/toast.service";
+import { useDispatch } from "react-redux";
+import { login } from "../slice/authSlice";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -11,6 +13,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const registerSuccessMessages = [
     "Welcome aboard, captain! 🛸",
@@ -44,6 +47,13 @@ const Register = () => {
             Math.floor(Math.random() * registerSuccessMessages.length)
           ]
         );
+        const data = {
+          email: response.data.user.email,
+          name: response.data.user.name,
+          token: response.data.token,
+          avatar: response.data.user.avatar,
+        };
+        dispatch(login(data));
         navigate("/dashboard");
       }
     } catch (error) {

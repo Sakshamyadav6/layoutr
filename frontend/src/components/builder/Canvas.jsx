@@ -1,55 +1,109 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
+import { addComponentToProject } from "../../slice/projectSlice";
 
 const Canvas = () => {
-  const projectState = useSelector((state) => state.project);
+  const { componentTrees, currentProjectId } = useSelector(
+    (state) => state.project
+  );
+  //fallback to empty array id no componentTree exist
+  const componentTree = componentTrees?.[currentProjectId] || [];
+  console.log(componentTrees?.[currentProjectId] || []);
 
-  const currentProjectId = projectState?.currentProjectId;
-  const componentTrees = projectState?.componentTrees || {};
+  const dispatch = useDispatch();
 
-  const componentTree = currentProjectId
-    ? componentTrees[currentProjectId] || []
-    : [];
+  //setup the drop area
+  const [{ isOver }, drop] = useDrop({
+    accept: "component", //must matchthe type used in sidebar drag
+    // this function runs when a draggable item is dropped
+    drop: (item, monitor) => {
+      // get the exact position of the drop in browser viewport
+      const offSet = monitor.getSourceClientOffset();
 
-  const renderComponent = (comp) => {
-    switch (comp.type) {
-      case "Button":
+      // get position of canvas box on the page
+      const canvasRect = document
+        .getElementById("canvas")
+        ?.getBoundingClientRect();
+
+      if (!canvasRect || !offSet) return; // check wheter canvasRect or offset is undefined
+
+      // calculate relative position of drop inside the canvas
+      const x = offSet.x - canvasRect.left;
+      const y = offSet.y - canvasRect.top;
+
+      // create a new component object with positions
+      const newComponent = {
+        id: uuidv4(),
+        type: item.type,
+        label: item.label,
+        props: item.defaultProps,
+        position: { x, y },
+      };
+
+      dispatch(
+        addComponentToProject({
+          projectId: currentProjectId,
+          component: newComponent,
+        })
+      );
+    },
+    // this track whether an item is hovering over the drop zone
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
+
+  const renderComponent = (component) => {
+    const { id, type, props, position } = component;
+    const style = {
+      position: "absolute", //allows freeform placement
+      left: position?.x || 0,
+      top: position?.y || 0,
+      ...props?.style, //apply any custom styles passed
+    };
+    switch (type) {
+      case "button":
         return (
-          <button className="px-4 py-2 bg-blue-600 text-white rounded">
-            {comp.props.text || "Click Me"}
+          <button id={id} {...props} style={style}>
+            {props.children || "Button"}
           </button>
         );
-      case "Text":
+        break;
+      case "p":
         return (
-          <h1 className="text-2xl font-bold">{comp.props.text || "Title"}</h1>
+          <p id={id} {...props} style={style}>
+            {props.children || "P"}
+          </p>
         );
-      case "Card":
-        return <div className="border p-4 rounded shadow">Card Content</div>;
-      case "Container":
+        break;
+      case "div":
         return (
-          <div
-            className="border rounded p-4"
-            style={{ padding: comp.props.padding }}
-          >
-            {comp.children?.map(renderComponent)}
+          <div id={id} {...props} style={style}>
+            {props.children || "Div"}
           </div>
         );
+        break;
+      case "h1":
+        return (
+          <h1 id={id} {...props} style={style}>
+            {props.children || "H1"}
+          </h1>
+        );
       default:
-        return <p>Unknown Component</p>;
+        return null;
     }
   };
-
   return (
-    <div className="w-full min-h-[80vh] bg-white border border-dashed border-gray-300 rounded-xl p-6 shadow-sm">
-      {componentTree.length === 0 ? (
-        <div className="text-gray-400 text-center pt-16">
-          🚀 Start adding components from the left
-        </div>
-      ) : (
-        componentTree.map((comp, index) => (
-          <div key={index}>{renderComponent(comp)}</div>
-        ))
-      )}
+    <div
+      className=" relative w-full min-h-[80vh] bg-white border border-dashed border-gray-300 rounded-xl p-6 shadow-sm"
+      id="canvas" //used for getting canvas position for accurate drop
+      ref={drop} //attach drop logic
+    >
+      <p>Start building by drag and drop from sidebar</p>
+
+      {componentTree.map((comp) => renderComponent(comp))}
     </div>
   );
 };
