@@ -93,6 +93,21 @@ const projectSlice = createSlice({
         components[index].position = position;
       }
     },
+    updateComponentProps: (state, action) => {
+      const { projectId, componentId, propName, value } = action.payload;
+      const tree = state.componentTrees[projectId];
+      if (!tree) return;
+      const target = tree.find((comp) => comp.id === componentId);
+      if (target) {
+        target.props = {
+          ...target.props,
+          [propName]: value,
+        };
+      }
+    },
+    deleteSelectedComponentId: (state) => {
+      state.selectedComponentId = null;
+    },
   },
 });
 export const {
@@ -109,5 +124,7 @@ export const {
   setComponentTreeForProject,
   addComponentToProject,
   moveComponent,
+  updateComponentProps,
+  deleteSelectedComponentId,
 } = projectSlice.actions;
 export default projectSlice.reducer;
