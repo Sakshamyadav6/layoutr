@@ -94,7 +94,8 @@ const projectSlice = createSlice({
       }
     },
     updateComponentProps: (state, action) => {
-      const { projectId, componentId, propName, value } = action.payload;
+      const { projectId, componentId, propName, value, newProps } =
+        action.payload;
       const tree = state.componentTrees[projectId];
       if (!tree) return;
       const target = tree.find((comp) => comp.id === componentId);
@@ -104,9 +105,32 @@ const projectSlice = createSlice({
           [propName]: value,
         };
       }
+      if (newProps) {
+        target.props = {
+          ...target.props,
+          ...newProps,
+          style: {
+            ...target.props?.style,
+            ...newProps?.style,
+          },
+        };
+      } else {
+        // 👇 Otherwise, simple single prop update
+        target.props = {
+          ...target.props,
+          [propName]: value,
+        };
+      }
     },
-    deleteSelectedComponentId: (state) => {
+    closeSelectedComponentId: (state) => {
       state.selectedComponentId = null;
+    },
+    deleteSelectedComponent: (state, action) => {
+      const { projectId, componentId } = action.payload;
+      if (!state.componentTrees[projectId]) return;
+      state.componentTrees[projectId] = state.componentTrees[projectId].filter(
+        (comp) => comp.id !== componentId
+      );
     },
   },
 });
@@ -125,6 +149,7 @@ export const {
   addComponentToProject,
   moveComponent,
   updateComponentProps,
-  deleteSelectedComponentId,
+  closeSelectedComponentId,
+  deleteSelectedComponent,
 } = projectSlice.actions;
 export default projectSlice.reducer;

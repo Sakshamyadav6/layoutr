@@ -1,38 +1,61 @@
-import { XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { TrashIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteSelectedComponentId,
+  closeSelectedComponentId,
+  deleteSelectedComponent,
   updateComponentProps,
 } from "../../slice/projectSlice";
 
 const RightSideBar = () => {
-  const selecetedId = useSelector((state) => state.project.selectedComponentId);
+  const selectedId = useSelector((state) => state.project.selectedComponentId);
   const componentTrees = useSelector((state) => state.project.componentTrees);
   const currentProjectId = useSelector(
     (state) => state.project.currentProjectId
   );
 
   const selectedComponent = componentTrees?.[currentProjectId]?.find(
-    (comp) => comp.id === selecetedId
+    (comp) => comp.id === selectedId
   );
   const dispatch = useDispatch();
   const handleClose = (e) => {
     e.preventDefault();
     console.log(selectedComponent);
 
-    dispatch(deleteSelectedComponentId());
+    dispatch(closeSelectedComponentId());
   };
   const handleChange = (e) => {
     console.log(e.target);
     const { name, value } = e.target;
     const data = {
       projectId: currentProjectId,
-      componentId: selecetedId,
+      componentId: selectedId,
       propName: name,
       value: value,
     };
     dispatch(updateComponentProps(data));
+  };
+  const handleBackgroundChange = (e) => {
+    const newColor = e.target.value;
+    dispatch(
+      updateComponentProps({
+        projectId: currentProjectId,
+        componentId: selectedId,
+        newProps: {
+          style: {
+            backgroundColor: newColor,
+          },
+        },
+      })
+    );
+  };
+  const handleDelete = (e) => {
+    dispatch(
+      deleteSelectedComponent({
+        projectId: currentProjectId,
+        componentId: selectedId,
+      })
+    );
   };
   return (
     <>
@@ -67,6 +90,23 @@ const RightSideBar = () => {
                 className="border rounded px-2 py-1 h-20 resize-none w-full"
                 onChange={handleChange}
               />
+              <h3 className="text-lg font-semibold">Background Color</h3>
+              <input
+                type="color"
+                className="border w-7"
+                value={
+                  selectedComponent.props?.style?.backgroundColor || "#000"
+                }
+                onChange={handleBackgroundChange}
+              />
+            </div>
+            <div className="flex flex-row justify-between items-center mt-4">
+              <button className="bg-blue-700 px-5 py-2 text-white rounded hover:bg-blue-800">
+                Export
+              </button>
+              <button className="text-red-600" onClick={handleDelete}>
+                <TrashIcon className="h-7 w-7" />
+              </button>
             </div>
           </div>
         </>
