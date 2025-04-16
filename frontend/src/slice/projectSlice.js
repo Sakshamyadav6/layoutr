@@ -132,6 +132,15 @@ const projectSlice = createSlice({
         (comp) => comp.id !== componentId
       );
     },
+    addChildToComponent: (state, action) => {
+      const { parentId, childCoponent } = action.payload;
+      const tree = state.componentTrees[state.currentProjectId];
+      const parent = tree.find((comp) => comp.id == parentId);
+      if (parent) {
+        if (!parent.children) parent.children = [];
+        parent.children.push(childCoponent);
+      }
+    },
   },
 });
 export const {
@@ -151,5 +160,6 @@ export const {
   updateComponentProps,
   closeSelectedComponentId,
   deleteSelectedComponent,
+  addChildToComponent,
 } = projectSlice.actions;
 export default projectSlice.reducer;

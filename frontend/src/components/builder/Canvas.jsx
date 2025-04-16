@@ -52,6 +52,7 @@ const Canvas = () => {
         label: item.label,
         props: item.defaultProps,
         position: { x, y },
+        parentId: null,
       };
 
       dispatch(
@@ -80,7 +81,6 @@ const Canvas = () => {
         </p>
       ) : (
         <>
-          {" "}
           {componentTree.map((comp) => (
             <DraggableCanvasItem id={comp.id} component={comp} />
           ))}
