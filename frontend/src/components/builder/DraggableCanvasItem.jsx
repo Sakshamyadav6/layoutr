@@ -2,27 +2,22 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import {
-  setselectedComponentId,
-  addChildToComponent,
-} from "../../slice/projectSlice";
-import { v4 as uuidv4 } from "uuid";
+import { setselectedComponentId } from "../../slice/projectSlice";
 
 const DraggableCanvasItem = ({ component }) => {
-  const { id, type, props, position, children } = component;
+  const { id, type, props, position } = component;
   const dispatch = useDispatch();
 
+  // ✅ Set up dragging behavior
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: "existingComponent",
     item: { id },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
   }));
 
   const handleClick = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); //prevent canvas click override
     dispatch(setselectedComponentId(id));
+    console.log(id);
   };
 
   const style = {
@@ -33,63 +28,38 @@ const DraggableCanvasItem = ({ component }) => {
     opacity: isDragging ? 0.5 : 1,
     ...props?.style,
   };
-
   const commonProps = {
+    ref: dragRef,
     id,
     ...props,
     style,
     onClick: handleClick,
   };
 
-  // Special case for `div` to support nesting
   if (type === "div") {
     const [{ isOver }, dropRef] = useDrop(() => ({
       accept: "component",
       drop: (item, monitor) => {
         const newChild = {
           ...item.component,
-          id: uuidv4(),
-          position: { x: 0, y: 0 },
+          id: uuidv,
         };
-
-        dispatch(
-          addChildToComponent({ parentId: id, childComponent: newChild })
-        );
       },
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
     }));
-
-    return (
-      <div
-        ref={(node) => {
-          dragRef(node);
-          dropRef(node);
-        }}
-        {...commonProps}
-        style={{
-          ...style,
-          border: isOver ? "2px dashed blue" : "1px solid #ccc",
-          padding: "10px",
-          minHeight: "100px",
-        }}
-      >
-        {props.children || "Div (Drop Here)"}
-        {children?.map((child) => (
-          <DraggableCanvasItem key={child.id} component={child} />
-        ))}
-      </div>
-    );
   }
 
-  // Fallback for all other types
-  const ComponentTag = type;
-  return (
-    <ComponentTag ref={dragRef} {...commonProps}>
-      {props.children || type}
-    </ComponentTag>
-  );
+  switch (type) {
+    case "button":
+      return <button {...commonProps}>{props.children || "Button"}</button>;
+    case "p":
+      return <p {...commonProps}>{props.children || "Paragraph"}</p>;
+    case "div":
+      return <div {...commonProps}>{props.children || "Div"}</div>;
+    case "h1":
+      return <h1 {...commonProps}>{props.children || "Heading"}</h1>;
+    default:
+      return null;
+  }
 };
 
 export default DraggableCanvasItem;
