@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-20 pb-30 md:pt-0 md:pb-0">
+      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-20 pb-30 min-h-screen">
         {/* background glow */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_#3b82f6_0%,_transparent_70%)] opacity-10" />
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24 xl:py-28 text-center">
