@@ -23,7 +23,16 @@ const authSlice = createSlice({
       state.role = action.payload.role;
       state.createdAt = action.payload.createdAt;
     },
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.name = "";
+      state.email = "";
+      state.token = "";
+      state.avatar = "";
+      state.role = "";
+      state.createdAt = "";
+    },
   },
 });
-export const { login } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;
