@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideBar from "../../components/dashboard/SideBar";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import Modal from "../../components/modals/Modal";
@@ -12,6 +12,7 @@ const Dashboard = () => {
   const [isModal, setIsModal] = useState(false);
   const { token } = useSelector((state) => state.auth);
   const [project, setProject] = useState([]);
+  const navigate = useNavigate();
   const handleCreate = (e) => {
     e.preventDefault();
     setIsModal(true);
@@ -77,6 +78,10 @@ const Dashboard = () => {
                   {project.map((proj) => (
                     <div
                       key={proj._id}
+                      onClick={() => {
+                        console.log(proj._id);
+                        navigate(`/projects/${proj._id}`);
+                      }}
                       className="border rounded-xl p-4 bg-white shadow hover:shadow-md transition"
                     >
                       <div className="h-24 bg-gray-200 rounded mb-4" />

@@ -6,6 +6,7 @@ import { errorToast, successToast } from "../../services/toast.service";
 import { useDispatch } from "react-redux";
 import { login } from "../slice/authSlice";
 import Loader from "./Loader";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const successMessages = [
     "Welcome back, legend! 🦸",
@@ -96,18 +98,29 @@ const Login = () => {
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
-          <div>
+          <div className="relative ">
             <label className="block text-lg  text-gray-700 mb-1 ms-1">
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="*********"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className=" w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
+            <button
+              type="button"
+              className="absolute top-12 right-3"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeSlashIcon className="h-5 w-5" />
+              ) : (
+                <EyeIcon className="h-5 w-5" />
+              )}
+            </button>
           </div>
 
           <div className="text-sm text-blue-600 text-right">
