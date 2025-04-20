@@ -6,6 +6,8 @@ import {
   deleteSelectedComponent,
   updateComponentProps,
 } from "../../slice/projectSlice";
+import { buildHTMLFile, generateHTML } from "../../../utils/generateHTML";
+import { successToast } from "../../../services/toast.service";
 
 const RightSideBar = () => {
   const selectedId = useSelector((state) => state.project.selectedComponentId);
@@ -57,6 +59,31 @@ const RightSideBar = () => {
       })
     );
   };
+  const triggerDownload = (fileName, content) => {
+    //creates a blob (binary large object ) from the content
+    const blob = new Blob([content], { type: "text/plain" });
+    //creates a temporary <a> tag to trigger download
+    const link = document.createElement("a");
+    //assign download link using a Blob URL
+    link.href = URL.createObjectURL(blob);
+    //set the fileName user will see
+    link.download = fileName;
+    //attach the link to the download so it can be clicked
+    document.body.appendChild(link);
+    //start a click to start download
+    link.click();
+    //remove the link after to clean up
+    link.remove();
+  };
+  const handleExport = (e) => {
+    e.preventDefault();
+    const componentTree = componentTrees[currentProjectId];
+    const htmlBody = generateHTML(componentTree);
+    const htmlFile = buildHTMLFile(htmlBody);
+    triggerDownload("index.html", htmlFile);
+
+    successToast("Export Completed! index.html downloaded.");
+  };
   return (
     <>
       {selectedComponent ? (
@@ -95,13 +122,16 @@ const RightSideBar = () => {
                 type="color"
                 className="border w-7"
                 value={
-                  selectedComponent.props?.style?.backgroundColor || "#000"
+                  selectedComponent.props?.style?.backgroundColor || "#000000"
                 }
                 onChange={handleBackgroundChange}
               />
             </div>
             <div className="flex flex-row justify-between items-center mt-4">
-              <button className="bg-blue-700 px-5 py-2 text-white rounded hover:bg-blue-800">
+              <button
+                className="bg-blue-700 px-5 py-2 text-white rounded hover:bg-blue-800"
+                onClick={handleExport}
+              >
                 Export
               </button>
               <button className="text-red-600" onClick={handleDelete}>

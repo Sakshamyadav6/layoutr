@@ -80,3 +80,18 @@ export const getProjectById = async (uri, token) => {
     console.log(error);
   }
 };
+export const updateProjectById = async (uri, data, token) => {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_SERVER_URL}/${uri}`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+    errorToast(error.response.data.message);
+  }
+};

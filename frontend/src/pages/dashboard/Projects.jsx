@@ -3,12 +3,11 @@ import SideBar from "../../components/dashboard/SideBar";
 import { useSelector } from "react-redux";
 import { deleteProject, getProject } from "../../../services/axios.service";
 import { successToast } from "../../../services/toast.service";
-import { formatDistanceToNow } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { date } from "../../../utils/date";
 
 const Projects = () => {
   const [project, setProject] = useState([]);
-  let formattedDate = "";
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const GetProjects = async () => {
@@ -61,16 +60,7 @@ const Projects = () => {
 
                   <h2 className="text-2lg">{proj.name}</h2>
 
-                  <p className="">
-                    {
-                      (formattedDate = formatDistanceToNow(
-                        new Date(proj.createdAt),
-                        {
-                          addSuffix: true,
-                        }
-                      ))
-                    }
-                  </p>
+                  <p className="">{date(proj.createdAt)}</p>
                   <p>{proj.cssFramework}</p>
                   <div className="flex flex-row justify-end">
                     <button

@@ -2,8 +2,34 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 import React from "react";
 import { componentLibrary } from "../../../data/componentLibrary";
 import { useDrag } from "react-dnd";
+import { updateProjectById } from "../../../services/axios.service";
+import { useSelector } from "react-redux";
+import { successToast } from "../../../services/toast.service";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
+  const { token } = useSelector((state) => state.auth);
+
+  const { currentProjectId, componentTrees } = useSelector(
+    (state) => state.project
+  );
+  const navigate = useNavigate();
+  const handleChanges = async (e) => {
+    e.preventDefault();
+    console.log(token);
+    console.log(currentProjectId, componentTrees[currentProjectId]);
+
+    try {
+      const data = { components: componentTrees[currentProjectId] };
+      const response = await updateProjectById(
+        `api/project/${currentProjectId}`,
+        data,
+        token
+      );
+      successToast("Project Updated Sucessfully");
+      navigate(`/projects/${currentProjectId}`);
+    } catch (error) {}
+  };
   return (
     <div className="h-full w-full p-4 text-white bg-[#0f172a] flex flex-col gap-6">
       {/* Branding */}
@@ -38,12 +64,14 @@ const SideBar = () => {
           })}
         </div>
       </div>
-
-      {/* (Optional) Add your own section below */}
-      {/* <div>
-        <h3 className="text-md font-semibold mb-2">Templates</h3>
-        ...
-      </div> */}
+      <div className="">
+        <button
+          className="bg-blue-700 py-3 px-3 rounded hover:bg-blue-800"
+          onClick={handleChanges}
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
   );
 };

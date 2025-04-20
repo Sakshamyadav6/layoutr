@@ -13,6 +13,7 @@ import {
 import Loader from "../Loader";
 import { formatDistanceToNow } from "date-fns";
 import { successToast } from "../../../services/toast.service";
+import { date } from "../../../utils/date";
 
 const ProjectDetail = () => {
   const [projectData, setProjectData] = useState({ components: [] });
@@ -30,11 +31,8 @@ const ProjectDetail = () => {
       const response = await getProjectById(`api/project/${id}`, token);
       console.log(response);
       if (response.status == "200" || response.status == "201") {
-        // console.log(response.data.project.components);
         const project = response.data.project;
-        const formattedDate = formatDistanceToNow(new Date(project.createdAt), {
-          addSuffix: true,
-        });
+        const formattedDate = date(project.createdAt);
         // dispatch(setComponentTreeForProject(projectData));
         setCreatedDate(formattedDate);
         setProjectData(project);

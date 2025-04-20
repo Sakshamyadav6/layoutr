@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SideBar from "../../components/dashboard/SideBar";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import Modal from "../../components/modals/Modal";
+import { useSelector } from "react-redux";
+import { getProject } from "../../../services/axios.service";
+import { date } from "../../../utils/date";
 
 const Dashboard = () => {
   const [isModal, setIsModal] = useState(false);
+  const { token } = useSelector((state) => state.auth);
+  const [project, setProject] = useState([]);
   const handleCreate = (e) => {
     e.preventDefault();
     setIsModal(true);
@@ -13,6 +18,19 @@ const Dashboard = () => {
   const handleClose = () => {
     setIsModal(false);
   };
+  const projectsData = async () => {
+    try {
+      const response = await getProject("api/project", token);
+      setProject(response.data.project);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    console.log(token);
+    projectsData();
+    console.log(project);
+  }, []);
   return (
     <>
       <div className="flex flex-col md:flex-row min-h-screen">
@@ -31,7 +49,10 @@ const Dashboard = () => {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <button className="text-sm text-gray-500 hover:text-gray-800">
+              <button
+                className="text-sm text-gray-500 hover:text-gray-800"
+                onClick={() => console.log(project)}
+              >
                 Docs
               </button>
               <button className="text-sm text-gray-500 hover:text-gray-800">
@@ -54,17 +75,23 @@ const Dashboard = () => {
               </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {["Marketing Site", "Admin Dashboard", "SaaS App"].map(
-                (project, index) => (
-                  <div
-                    key={index}
-                    className="border rounded-xl p-4 bg-white shadow hover:shadow-md transition"
-                  >
-                    <div className="h-24 bg-gray-200 rounded mb-4" />
-                    <h4 className="font-semibold">{project}</h4>
-                    <p className="text-sm text-gray-500">Mar {6 + index}</p>
-                  </div>
-                )
+              {project.length !== 0 ? (
+                <>
+                  {project.map((proj) => (
+                    <div
+                      key={proj._id}
+                      className="border rounded-xl p-4 bg-white shadow hover:shadow-md transition"
+                    >
+                      <div className="h-24 bg-gray-200 rounded mb-4" />
+                      <h4 className="font-semibold">{proj.name}</h4>
+                      <p className="text-sm text-gray-500">
+                        {date(proj.createdAt)}
+                      </p>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <h2 className="text-lg text-gray-500">No Projects Found</h2>
               )}
             </div>
           </section>

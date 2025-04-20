@@ -11,7 +11,7 @@ const Canvas = () => {
   );
   //fallback to empty array id no componentTree exist
   const componentTree = componentTrees?.[currentProjectId] || [];
-  console.log(componentTrees?.[currentProjectId] || []);
+  // console.log(componentTrees?.[currentProjectId] || []);
 
   const dispatch = useDispatch();
 

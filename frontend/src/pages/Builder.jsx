@@ -19,7 +19,7 @@ const Builder = () => {
   );
   useEffect(() => {
     if (id) {
-      console.log(id);
+      // console.log(id);
       dispatch(setBuilderMode("auth"));
       dispatch(setCurrentProjectId(id));
     } else {
