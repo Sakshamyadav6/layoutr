@@ -5,12 +5,14 @@ import { registerUser } from "../../services/axios.service";
 import { errorToast, successToast } from "../../services/toast.service";
 import { useDispatch } from "react-redux";
 import { login } from "../slice/authSlice";
+import Loader from "./Loader";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,17 +32,19 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      return errorToast("Password and Confirm Password are not equal");
+    }
     try {
-      if (password !== confirmPassword) {
-        errorToast("Password and Confirm Password are not equal");
-        return;
-      }
+      setLoading(true);
+
       const response = await registerUser("api/auth/register", {
         name: name,
         email: email,
         password: confirmPassword,
       });
       if (response.status == "200") {
+        setLoading(false);
         successToast(
           registerSuccessMessages[
             Math.floor(Math.random() * registerSuccessMessages.length)
@@ -58,7 +62,8 @@ const Register = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      errorToast(error);
+      setLoading(false);
+      console.log(error);
     }
   };
   return (
@@ -142,9 +147,10 @@ const Register = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition cursor-pointer"
           >
-            Register
+            {loading ? <Loader /> : <>Register</>}
           </button>
         </form>
         {/* OR line */}

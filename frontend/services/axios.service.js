@@ -21,7 +21,7 @@ export const loginUser = async (uri, data) => {
     );
     return response;
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     errorToast(error.response.data.message);
   }
 };

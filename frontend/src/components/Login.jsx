@@ -5,12 +5,14 @@ import { loginUser } from "../../services/axios.service";
 import { errorToast, successToast } from "../../services/toast.service";
 import { useDispatch } from "react-redux";
 import { login } from "../slice/authSlice";
+import Loader from "./Loader";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const successMessages = [
     "Welcome back, legend! 🦸",
@@ -27,9 +29,15 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      return errorToast("Email and Pasword are required");
+    }
     try {
+      setLoading(true);
+
       const response = await loginUser("api/auth/login", { email, password });
       if (response.status == "200") {
+        setLoading(false);
         const data = {
           email: response.data.user.email,
           name: response.data.user.name,
@@ -45,7 +53,8 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      errorToast(error);
+      setLoading(false);
+      console.log(error);
     }
   };
   return (
@@ -108,9 +117,10 @@ const Login = () => {
           <button
             type="submit"
             onClick={handleLogin}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition cursor-pointer"
+            disabled={loading}
+            className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition cursor-pointer`}
           >
-            Login
+            {loading ? <Loader /> : <>Login</>}
           </button>
         </form>
         {/* OR line */}
