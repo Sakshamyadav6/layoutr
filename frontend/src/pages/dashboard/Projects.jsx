@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../../components/dashboard/SideBar";
 import { useSelector } from "react-redux";
 import { deleteProject, getProject } from "../../../services/axios.service";
-import { successToast } from "../../../services/toast.service";
-import { useNavigate } from "react-router-dom";
+import { errorToast, successToast } from "../../../services/toast.service";
+import { Link, useNavigate } from "react-router-dom";
 import { date } from "../../../utils/date";
 
 const Projects = () => {
@@ -13,22 +13,20 @@ const Projects = () => {
   const GetProjects = async () => {
     try {
       const response = await getProject("api/project", token);
-      console.log(response);
       setProject(response.data.project);
-      // successToast(response.data.message);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      errorToast(error);
     }
   };
   const handleDelete = async (id) => {
-    console.log("first");
     try {
       const response = await deleteProject(`api/project/${id}`, token);
-      console.log(response);
       successToast(response.data.message);
       GetProjects();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      errorToast(error);
     }
   };
   const handleView = (id) => {
@@ -85,7 +83,15 @@ const Projects = () => {
             </div>
           </>
         ) : (
-          <>No Projects Found </>
+          <>
+            No Projects Found{" "}
+            <Link
+              to="/dashboard"
+              className="underline text-blue-500 hover:text-blue-700"
+            >
+              Create one
+            </Link>
+          </>
         )}
       </main>
     </div>

@@ -12,7 +12,7 @@ import {
 } from "../../slice/projectSlice";
 import Loader from "../Loader";
 import { formatDistanceToNow } from "date-fns";
-import { successToast } from "../../../services/toast.service";
+import { errorToast, successToast } from "../../../services/toast.service";
 import { date } from "../../../utils/date";
 
 const ProjectDetail = () => {
@@ -29,7 +29,6 @@ const ProjectDetail = () => {
     dispatch(setProjectLoading(true)); //start loader
     try {
       const response = await getProjectById(`api/project/${id}`, token);
-      console.log(response);
       if (response.status == "200" || response.status == "201") {
         const project = response.data.project;
         const formattedDate = date(project.createdAt);
@@ -37,7 +36,6 @@ const ProjectDetail = () => {
         setCreatedDate(formattedDate);
         setProjectData(project);
 
-        console.log(project);
         if (!project) {
           dispatch(setProjectError("Project Not Found"));
           return;
@@ -49,26 +47,22 @@ const ProjectDetail = () => {
         dispatch(setProjectError("Failed to fetch project details"));
       }
     } catch (error) {
-      console.log(error);
       dispatch(setProjectError("Server error while loading project"));
     } finally {
       dispatch(setProjectLoading(false)); //end loader
-      console.log(loading);
     }
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    console.log("first");
     try {
       const response = await deleteProject(`api/project/${id}`, token);
-      console.log(response);
       if (response.status == "200" || response.status == "201") {
         navigate("/projects");
         successToast("Project Deleted Sucessfully");
       }
     } catch (error) {
-      console.log(error);
+      errorToast(error);
     }
   };
 

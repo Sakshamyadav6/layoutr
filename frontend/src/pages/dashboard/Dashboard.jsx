@@ -6,6 +6,7 @@ import Modal from "../../components/modals/Modal";
 import { useSelector } from "react-redux";
 import { getProject } from "../../../services/axios.service";
 import { date } from "../../../utils/date";
+import { errorToast } from "../../../services/toast.service";
 
 const Dashboard = () => {
   const [isModal, setIsModal] = useState(false);
@@ -23,13 +24,12 @@ const Dashboard = () => {
       const response = await getProject("api/project", token);
       setProject(response.data.project);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      errorToast(error);
     }
   };
   useEffect(() => {
-    console.log(token);
     projectsData();
-    console.log(project);
   }, []);
   return (
     <>
@@ -49,10 +49,7 @@ const Dashboard = () => {
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <button
-                className="text-sm text-gray-500 hover:text-gray-800"
-                onClick={() => console.log(project)}
-              >
+              <button className="text-sm text-gray-500 hover:text-gray-800">
                 Docs
               </button>
               <button className="text-sm text-gray-500 hover:text-gray-800">

@@ -5,9 +5,7 @@ import { date } from "../../../utils/date";
 
 const Account = () => {
   const profile = useSelector((state) => state.auth);
-  useEffect(() => {
-    console.log(profile);
-  }, []);
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       <aside className="bg-[#0f172a] w-full md:w-60 text-white text-center p-4">

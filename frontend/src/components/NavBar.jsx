@@ -35,18 +35,18 @@ const NavBar = () => {
           </div>
           {/*desktop links hidden in mobile */}
           <div className="hidden md:flex gap-8 text-xl text-dark  ">
-            <a href="" className="hover:text-gray-700 ">
+            <Link to="/features" className="hover:text-gray-700 ">
               Features
-            </a>
-            <a href="" className="hover:text-gray-700 ">
+            </Link>
+            <Link to="/template" className="hover:text-gray-700 ">
               Template
-            </a>
-            <a href="" className="hover:text-gray-700 ">
+            </Link>
+            <Link to="/pricing" className="hover:text-gray-700 ">
               Pricing
-            </a>
-            <a href="" className="hover:text-gray-700 ">
+            </Link>
+            <Link to="/docs" className="hover:text-gray-700 ">
               Docs
-            </a>
+            </Link>
           </div>
           {/* fot cta buttons */}
           <div className="hidden md:flex gap-4 text-lg mr-2">
@@ -54,7 +54,7 @@ const NavBar = () => {
               <Link to="/login">Sign In</Link>
             </button>
             <button className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 cursor-pointer">
-              Try Free
+              <Link to="/register"> Try Free</Link>
             </button>
           </div>
         </div>
@@ -62,16 +62,16 @@ const NavBar = () => {
         {isMobileMenu && (
           <>
             <div className="md:hidden flex flex-col items-center text-lg p-2 text-dark  transform transition-all duration-300 ease-in-out">
-              <a href="" className="py-1">
+              <a href="/features" className="py-1">
                 Features
               </a>
-              <a href="" className="py-1">
+              <a href="/template" className="py-1">
                 Template
               </a>
-              <a href="" className="py-1">
+              <a href="/pricing" className="py-1">
                 Pricing
               </a>
-              <a href="" className="py-1">
+              <a href="/docs" className="py-1">
                 Docs
               </a>
               <div className="w-full my-1 border-t"></div>
@@ -80,7 +80,7 @@ const NavBar = () => {
                   <Link to="/login">Sign In</Link>
                 </button>
                 <button className="text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700 transition cursor-pointer">
-                  Try Free
+                  <Link to="/register"> Try Free</Link>
                 </button>
               </div>
             </div>

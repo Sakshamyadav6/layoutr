@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../slice/authSlice";
+import { successToast } from "../../../services/toast.service";
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const SideBar = () => {
     e.preventDefault();
     navigate("/login");
     dispatch(logout());
+    successToast("Logged out Sucessfully");
   };
   return (
     <div>

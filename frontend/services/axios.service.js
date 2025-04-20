@@ -9,7 +9,7 @@ export const registerUser = async (uri, data) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     errorToast(error.response.data.message);
   }
 };
@@ -21,7 +21,7 @@ export const loginUser = async (uri, data) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     errorToast(error.response.data.message);
   }
 };
@@ -38,7 +38,7 @@ export const createProject = async (uri, data, token) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     errorToast(error.response.data.message);
   }
 };
@@ -51,7 +51,7 @@ export const getProject = async (uri, token) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     errorToast(error.response.data.message);
   }
 };
@@ -64,7 +64,7 @@ export const deleteProject = async (uri, token) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     errorToast(error.response.data.message);
   }
 };
@@ -77,7 +77,8 @@ export const getProjectById = async (uri, token) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    errorToast(error.response.data.message);
   }
 };
 export const updateProjectById = async (uri, data, token) => {
@@ -91,7 +92,7 @@ export const updateProjectById = async (uri, data, token) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     errorToast(error.response.data.message);
   }
 };

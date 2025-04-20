@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/axios.service";
-import { successToast } from "../../services/toast.service";
+import { errorToast, successToast } from "../../services/toast.service";
 import { useDispatch } from "react-redux";
 import { login } from "../slice/authSlice";
 
@@ -29,9 +29,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await loginUser("api/auth/login", { email, password });
-      console.log(response);
       if (response.status == "200") {
-        console.log(response.data.user);
         const data = {
           email: response.data.user.email,
           name: response.data.user.name,
@@ -47,7 +45,7 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      console.log(error);
+      errorToast(error);
     }
   };
   return (

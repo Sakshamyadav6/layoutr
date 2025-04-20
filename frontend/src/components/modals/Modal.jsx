@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createProject } from "../../../services/axios.service";
 import { useSelector } from "react-redux";
-import { successToast } from "../../../services/toast.service";
+import { errorToast, successToast } from "../../../services/toast.service";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -27,7 +27,6 @@ const Modal = ({ isModal, handleClose }) => {
         },
         token
       );
-      console.log(response);
       if (response.status == "201" || response.status == "200") {
         const id = response.data.project.id;
         successToast(
@@ -47,7 +46,7 @@ const Modal = ({ isModal, handleClose }) => {
         setCssFramework("");
       }
     } catch (error) {
-      console.log(error);
+      errorToast(erro);
     }
   };
 

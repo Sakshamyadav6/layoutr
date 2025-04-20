@@ -15,9 +15,12 @@ import Builder from "./pages/Builder";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PageNotFound from "./pages/PageNotFound";
 import { useSelector } from "react-redux";
+import Template from "./pages/Template";
+import Pricing from "./pages/Pricing";
+import Docs from "./pages/Docs";
+import Features from "./pages/Features";
 
 function App() {
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const location = useLocation();
   const hideNavbarRoutes = [
     "/dashboard",
@@ -41,6 +44,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
+        <Route path="/features" element={<Features />} />
+        <Route path="/template" element={<Template />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/docs" element={<Docs />} />
         {/* protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />

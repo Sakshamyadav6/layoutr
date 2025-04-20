@@ -28,8 +28,12 @@ const registeredUser = async (req, res) => {
     res.status(200).json({
       message: "user registred sucessfully",
       user: {
+        id: newUser._id,
         name: newUser.name,
         email: newUser.email,
+        avatar: newUser.avatar,
+        role: newUser.role,
+        createdAt: newUser.createdAt,
       },
 
       token,

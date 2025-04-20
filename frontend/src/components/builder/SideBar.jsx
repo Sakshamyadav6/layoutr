@@ -16,8 +16,6 @@ const SideBar = () => {
   const navigate = useNavigate();
   const handleChanges = async (e) => {
     e.preventDefault();
-    console.log(token);
-    console.log(currentProjectId, componentTrees[currentProjectId]);
 
     try {
       const data = { components: componentTrees[currentProjectId] };

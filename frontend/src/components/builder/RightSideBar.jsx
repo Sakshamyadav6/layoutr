@@ -22,12 +22,10 @@ const RightSideBar = () => {
   const dispatch = useDispatch();
   const handleClose = (e) => {
     e.preventDefault();
-    console.log(selectedComponent);
 
     dispatch(closeSelectedComponentId());
   };
   const handleChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
     const data = {
       projectId: currentProjectId,

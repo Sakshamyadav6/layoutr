@@ -17,8 +17,7 @@ const DraggableCanvasItem = ({ component }) => {
   const handleClick = (e) => {
     e.stopPropagation(); //prevent canvas click override
     dispatch(setselectedComponentId(id));
-    console.log(id);
-  };
+   };
 
   const style = {
     position: "absolute",
