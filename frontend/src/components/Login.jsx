@@ -37,6 +37,8 @@ const Login = () => {
           name: response.data.user.name,
           token: response.data.token,
           avatar: response.data.user.avatar,
+          role: response.data.user.role,
+          createdAt: response.data.user.createdAt,
         };
         dispatch(login(data));
         successToast(

@@ -5,6 +5,8 @@ const initialState = {
   email: "",
   token: "",
   avatar: "",
+  role: "user",
+  createdAt: "",
 };
 
 const authSlice = createSlice({
@@ -18,6 +20,8 @@ const authSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.avatar = action.payload.avatar;
+      state.role = action.payload.role;
+      state.createdAt = action.payload.createdAt;
     },
   },
 });

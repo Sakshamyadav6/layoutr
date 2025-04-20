@@ -9,7 +9,14 @@ const Library = () => {
         <SideBar />
       </aside>
       {/* main content */}
-      <main className="flex-1 overflow-x-auto text-gray-900 p-5 md:p-10"></main>
+      <main className="flex-1 overflow-x-auto text-gray-900 p-5 md:p-10">
+        <h2 className="text-3xl font-bold mb-1">UI Library</h2>
+
+        <h3 className="text-lg text-gray-700">
+          Library support is not available yet. We're working on adding reusable
+          UI libraries soon.
+        </h3>
+      </main>
     </div>
   );
 };
