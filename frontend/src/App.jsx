@@ -14,11 +14,11 @@ import ProjectDetail from "./components/dashboard/ProjectDetail";
 import Builder from "./pages/Builder";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PageNotFound from "./pages/PageNotFound";
-import { useSelector } from "react-redux";
 import Template from "./pages/Template";
 import Pricing from "./pages/Pricing";
 import Docs from "./pages/Docs";
 import Features from "./pages/Features";
+import Developer from "./pages/Developer";
 
 function App() {
   const location = useLocation();
@@ -45,6 +45,7 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Route>
         <Route path="/features" element={<Features />} />
+        <Route path="/developer" element={<Developer />} />
         <Route path="/template" element={<Template />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/docs" element={<Docs />} />

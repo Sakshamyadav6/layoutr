@@ -38,8 +38,8 @@ const NavBar = () => {
             <Link to="/features" className="hover:text-gray-700 ">
               Features
             </Link>
-            <Link to="/template" className="hover:text-gray-700 ">
-              Template
+            <Link to="/developer" className="hover:text-gray-700 ">
+              Developer
             </Link>
             <Link to="/pricing" className="hover:text-gray-700 ">
               Pricing
@@ -65,8 +65,8 @@ const NavBar = () => {
               <a href="/features" className="py-1">
                 Features
               </a>
-              <a href="/template" className="py-1">
-                Template
+              <a href="/developer" className="py-1">
+                Developer
               </a>
               <a href="/pricing" className="py-1">
                 Pricing

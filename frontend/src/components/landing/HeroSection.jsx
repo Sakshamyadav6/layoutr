@@ -1,12 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRightIcon, PlayCircleIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowRightIcon,
+  CpuChipIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
     <>
-      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-20 pb-30 min-h-screen">
+      <section className="relative bg-gradient-to-br from-blue-50 to-purple-50 pt-20 pb-30 md:pt-0 md:pb-0 min-h-screen">
         {/* background glow */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_#3b82f6_0%,_transparent_70%)] opacity-10" />
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:py-24 xl:py-28 text-center">
@@ -45,10 +49,10 @@ const HeroSection = () => {
               Start Building Free <ArrowRightIcon className="h-5 w-5" />
             </Link>
             <Link
-              to="/"
+              to="/developer"
               className="inline-flex items-center justify-center gap-2 text-sm md:text-lg text-gray-900 bg-gray-100 px-6 py-4 rounded-lg shadow-lg font-semibold "
             >
-              <PlayCircleIcon className="h-5 w-5 text-blue-600" /> Watch Demo
+              <CpuChipIcon className="h-5 w-5 text-blue-600" /> Meet Developer
             </Link>
           </motion.div>
         </div>

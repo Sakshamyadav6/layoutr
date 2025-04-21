@@ -16,7 +16,7 @@ const Projects = () => {
       setProject(response.data.project);
     } catch (error) {
       // console.log(error);
-      errorToast(error);
+      // errorToast(error.message);
     }
   };
   const handleDelete = async (id) => {
@@ -26,7 +26,7 @@ const Projects = () => {
       GetProjects();
     } catch (error) {
       // console.log(error);
-      errorToast(error);
+      // errorToast(error.message);
     }
   };
   const handleView = (id) => {

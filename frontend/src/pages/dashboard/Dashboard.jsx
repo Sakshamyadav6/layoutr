@@ -26,7 +26,7 @@ const Dashboard = () => {
       setProject(response.data.project);
     } catch (error) {
       // console.log(error);
-      errorToast(error);
+      // errorToast(error.message);
     }
   };
   useEffect(() => {

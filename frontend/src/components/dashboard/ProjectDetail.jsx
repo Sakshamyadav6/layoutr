@@ -62,7 +62,7 @@ const ProjectDetail = () => {
         successToast("Project Deleted Sucessfully");
       }
     } catch (error) {
-      errorToast(error);
+      console.log(error);
     }
   };
 
