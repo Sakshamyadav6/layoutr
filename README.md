@@ -16,13 +16,46 @@
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Framework:** React.js
 - **Styling:** Tailwind CSS
-- **State Management:** Zustand / Redux
+- **Motion:** Framer Motion
+- **State Management:** Redux
 
 ### Backend
+
 - **Runtime:** Node.js
-- **Server Framework:** Express.js / Next.js API Routes
-- **Database:** MongoDB (Planned)
-- **Auth:** Clerk / NextAuth.js (Planned)
-- **Real-time:** Liveblocks / WebSockets (Planned)
+- **Server Framework:** Express.js
+- **Database:** MongoDB
+
+### Steps to Run Frontend
+
+To run frontend
+
+```bash
+cd frontend
+```
+
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+### Steps to Run Backend
+
+To run Backend
+
+```bash
+cd backend
+```
+
+```bash
+npm install
+```
+
+```bash
+nodemon server.js
+```
