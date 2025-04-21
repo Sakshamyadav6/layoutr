@@ -11,7 +11,7 @@
 
 ## 📸 Preview
 
-> Landing page in progress – stay tuned for live demo!
+> https://layoutr.vercel.app/
 
 ## 🛠️ Tech Stack
 
@@ -27,7 +27,11 @@
 - **Runtime:** Node.js
 - **Server Framework:** Express.js
 - **Database:** MongoDB
-
+### Run the Project
+First clone the Project
+```bash 
+git clone https://github.com/Sakshamyadav6/layoutr.git
+```
 ### Steps to Run Frontend
 
 To run frontend
