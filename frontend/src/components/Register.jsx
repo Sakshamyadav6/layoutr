@@ -35,6 +35,12 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!name || !email) {
+      return errorToast("Details are Required");
+    }
+    if (!password && !confirmPassword) {
+      return errorToast("Password is Required");
+    }
     if (password !== confirmPassword) {
       return errorToast("Password and Confirm Password are not equal");
     }
